@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  react-app:
+    build: ./mon-app-react
+    ports:
+      - "8080:3000"
+    depends_on:
+      - api-app
+      - react-db
+    environment:
+      - DATABASE_URL=mysql://user:password@react-db:3306/mydatabase
+      - REACT_APP_API_URL=http://api-app:80/api/books
+    networks:
+      - mon-reseau
+  react-db:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    volumes:
+      - react-mysqldata:/var/lib/mysql
+    networks:
+      - mon-reseau
+  api-app:
+    build: ./my-api
+    ports:
+      - "8090:80"
+    depends_on:
+      - api-db
+    environment:
+      - DATABASE_URL=postgresql://root:root@api-db:5432/api
+      - APP_ENV=dev
+    volumes:
+      - ./my-api:/var/www/html
+    networks:
+      - mon-reseau
+
+  api-db:
+    image: postgres:15-alpine
+    ports:
+      - "49512:5432"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=api
+    volumes:
+      - api-postgresdata:/var/lib/postgresql/data
+    networks:
+      - mon-reseau
+volumes:
+  react-mysqldata:
+  api-postgresdata:
+
+networks:
+  mon-reseau:
