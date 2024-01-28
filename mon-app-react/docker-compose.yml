@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:3000"
+    volumes:
+      - ./mon-app-react:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql://user:password@db:3306/mydatabase
+      - REACT_APP_API_URL=http://localhost:8090/api
+
+  db:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+
+volumes:
+  mysqldata:
