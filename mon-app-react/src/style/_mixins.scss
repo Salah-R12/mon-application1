@@ -1,0 +1,13 @@
+// Exemple de mixin pour un bouton
+@mixin button-style($bg-color: $primary-color) {
+  padding: 0.5rem 1rem;
+  background-color: $bg-color;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($bg-color, 10%);
+  }
+}

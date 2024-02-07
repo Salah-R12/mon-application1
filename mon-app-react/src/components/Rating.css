@@ -1,0 +1,8 @@
+.star {
+    color: #e4e5e9;
+    cursor: pointer;
+}
+
+.star:hover {
+    color: #ffc107;
+}

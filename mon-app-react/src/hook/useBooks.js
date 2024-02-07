@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getBooks } from '../apiService'; // Assurez-vous que le chemin est correct
+import '../style/Book.css';
 
 const useBooks = () => {
     const [books, setBooks] = useState([]);
