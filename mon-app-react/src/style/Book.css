@@ -110,3 +110,23 @@
 }
 
 
+.reset-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px; /* Ajustez selon l'espacement désiré */
+  font-size: 16px;
+  color: white;
+  background-color: blue;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.reset-button:hover {
+  background-color: darkblue; /* Un peu plus foncé au survol */
+}
+
+.reset-button:focus {
+  outline: none; /* Retirer l'outline lors du focus */
+}

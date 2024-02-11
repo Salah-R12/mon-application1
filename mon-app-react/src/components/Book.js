@@ -4,6 +4,7 @@ import useBooks from '../hook/useBooks';
 import Rating from './Rating';
 import '../style/Book.css'; // Assurez-vous que le chemin est correct
 import { getCategories } from '../apiService';
+import { Link } from 'react-router-dom';
 
 function Book() {
     const [query, setQuery] = useState("");
@@ -20,7 +21,7 @@ function Book() {
             const filtered = books.filter(book => {
                 const isMatchTitle = book.title.toLowerCase().includes(query.toLowerCase());
                 const isMatchPrice =   book.price >= currentPrice && book.price <= maxPrice;
-                const isMatchCategory = selectedCategory ? book.categoryName === selectedCategory : true;
+                const isMatchCategory = selectedCategory ? book.Category === `/api/categories/${selectedCategory}` : true;
                 return isMatchTitle && isMatchPrice && isMatchCategory;
             });
             setFilteredBooks(filtered);
@@ -39,6 +40,20 @@ function Book() {
         const number = Math.floor(Math.random() * 4) + 1;
         return `/images/book${number}.webp`;
     };
+
+    const handleCategoryChange = (e) => {
+        setSelectedCategory(e.target.value);
+    };
+
+
+    const resetFilters = () => {
+        setQuery("");
+        setSelectedCategory("");
+        setCurrentPrice(20); // ou toute autre valeur initiale que vous souhaitez pour le prix
+        // Pas besoin de réinitialiser les livres ou les catégories puisqu'ils ne changent pas
+    };
+
+
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -80,7 +95,7 @@ function Book() {
                 </div>
                 <select
                     value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    onChange={handleCategoryChange}
                     className="category-select"
                 >
                     <option value="">Toutes les catégories</option>
@@ -90,6 +105,7 @@ function Book() {
                         </option>
                     ))}
                 </select>
+                <button onClick={resetFilters} className="reset-button">Clear</button>
             </aside>
             <div className="book-list">
                 <input
@@ -102,12 +118,14 @@ function Book() {
                 <div className="books-grid">
                     {filteredBooks.map(book => (
                         <div key={book.id} className="book-item">
-                            <img src={getRandomImage()} alt={book.title} className="book-image" />
-                            <div className="book-details">
-                                <h3 className="book-title">{book.title}</h3>
-                                <p className="book-author">{book.Author.name}</p>
-                                <Rating bookId={book.id} onRating={(rating) => console.log(rating)} />
-                            </div>
+                            <Link to={`/book/${book.id}`}>
+                                <img src={getRandomImage()} alt={book.title} className="book-image" />
+                                <div className="book-details">
+                                    <h3 className="book-title">{book.title}</h3>
+                                    <p className="book-author">{book.Author.name}</p>
+                                    <Rating bookId={book.id} onRating={(rating) => console.log(rating)} />
+                                </div>
+                            </Link>
                         </div>
                     ))}
                 </div>
