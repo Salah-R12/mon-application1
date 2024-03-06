@@ -43,3 +43,40 @@ export const fetchBookDetails = async (id) => {
     throw error;
   }
 };
+
+export const verifyUser = async (email, password) => {
+  try {
+    const response = await fetch('http://localhost:8090/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    if (!response.ok) {
+      throw new Error('Utilisateur non trouvé ou mot de passe incorrect.');
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+
+export const resetPassword = async (email) => {
+  try {
+    const response = await fetch('http://localhost:8090/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!response.ok) throw new Error('Email not found');
+    return await response.json();
+  } catch (error) {
+    console.error("Error sending reset password email:", error);
+    throw error;
+  }
+};
