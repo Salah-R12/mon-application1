@@ -65,7 +65,7 @@ export const verifyUser = async (email, password) => {
 
 export const resetPassword = async (email) => {
   try {
-    const response = await fetch('http://localhost:8090/api/login', {
+    const response = await fetch('http://localhost:8090/api/check-email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

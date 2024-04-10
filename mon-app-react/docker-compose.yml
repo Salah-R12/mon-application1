@@ -5,14 +5,14 @@ services:
     ports:
       - "8080:3000"
     volumes:
-      - ./mon-app-react:/app
+      - ./mon-app-react:/app:delegated
       - /app/node_modules
     depends_on:
       - db
     environment:
       - DATABASE_URL=mysql://user:password@db:3306/mydatabase
       - REACT_APP_API_URL=http://localhost:8090/api
-
+    command: npm start
   db:
     image: mariadb
     ports:

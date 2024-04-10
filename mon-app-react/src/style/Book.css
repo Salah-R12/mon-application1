@@ -14,6 +14,9 @@
 .main-content {
   display: flex;
   flex-direction: column;
+  padding-left: 20px; /* Espace depuis le bord gauche de la page */
+  padding-right: 320px; /* Espace pour le cart-sidebar plus un peu de marge */
+  margin-top: 52px; /* Espace depuis le haut pour le header */
 }
 
 

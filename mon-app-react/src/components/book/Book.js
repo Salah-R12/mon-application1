@@ -1,15 +1,24 @@
 // Book.js
 import React, { useEffect, useState } from 'react';
-import useBooks from '../hook/useBooks';
-import Rating from './Rating';
-import '../style/Book.css'; // Assurez-vous que le chemin est correct
-import { getCategories } from '../apiService';
+import useBooks from '../../hook/useBooks';
+import Rating from './../Rating';
+import '../../style/Book.css'; // Assurez-vous que le chemin est correct
+import { getCategories } from '../../apiService';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addToCart } from '../../store/actions/cartActions';
+
 
 function Book() {
     const [query, setQuery] = useState("");
     const { books, loading, error } = useBooks();
     const [filteredBooks, setFilteredBooks] = useState([]);
+
+    const dispatch = useDispatch();
+
+    const handleAddToCart = (book) => {
+        dispatch(addToCart(book,1));
+    };
 
     const [currentPrice, setCurrentPrice] = useState(20);
     const maxPrice = 100;
@@ -122,8 +131,11 @@ function Book() {
                                 <img src={getRandomImage()} alt={book.title} className="book-image" />
                                 <div className="book-details">
                                     <h3 className="book-title">{book.title}</h3>
-                                    <p className="book-author">{book.Author.name}</p>
                                     <Rating bookId={book.id} onRating={(rating) => console.log(rating)} />
+                                    <div>
+                                        <button onClick={() => handleAddToCart(book)}>Ajouter au panier</button>
+
+                                    </div>
                                 </div>
                             </Link>
                         </div>

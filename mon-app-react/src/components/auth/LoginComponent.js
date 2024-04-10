@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import LoginModal from './LoginModal';
 import userIcon from '../assets/login.svg';
-import PasswordResetPage from "./auth/PasswordResetModal";
 
 const LoginComponent = () => {
     const [showModal, setShowModal] = useState(false);

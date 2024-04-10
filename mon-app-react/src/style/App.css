@@ -3,7 +3,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 200;
 }
 
 .black-banner, .green-banner {
@@ -273,6 +273,44 @@
   text-align: left;
 }
 
+.password-reset-page {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .App {
   text-align: center;
   padding-top: 104px;
@@ -311,4 +349,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.cart-sidebar {
+  position: fixed;
+  right: 0;
+  top: 52px; /* Ajustez en fonction de la hauteur de votre header */
+  width: 300px; /* Ajustez la largeur selon vos besoins */
+  height: calc(100vh - 52px); /* Ajustez en fonction de la hauteur de votre header */
+  background-color: #f9f9f9;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  overflow-y: auto; /* Permet le scroll si les éléments dépassent */
+  z-index: 100; /* Assurez-vous qu'il est au-dessus des autres contenus mais pas plus haut que le modal si vous en utilisez */
 }
